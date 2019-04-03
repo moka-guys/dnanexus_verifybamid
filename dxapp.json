@@ -1,13 +1,13 @@
 {
-  "name": "verify_bam_id_v1.2",
-  "title": "verifyBamID_v1.2",
-  "summary": "v1.2 - Detects sample contamination from genotypic profiles",
+  "name": "verify_bam_id_v1.1.1",
+  "title": "verifyBamID_v1.1.1",
+  "summary": "v1.1.1 - Detects sample contamination from genotypic profiles",
   "tags": [
     "Read QC",
     "Statistics"
   ],
   "properties": {
-    "github release": "v1.2"
+    "github release": "v1.1.1"
   },
   "dxapi": "1.0.0",
   "inputSpec": [
