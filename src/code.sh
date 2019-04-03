@@ -4,10 +4,6 @@
 # and to output each line as it is executed -- useful for debugging
 set -e -x -o pipefail
 
-# Read the api key as a variable. This key is required to download files from projects shared with
-# the mokaguys account
-API_KEY=$(cat '/home/dnanexus/auth_key')
-
 # Store the bam file name as a string
 bam_file=`dx describe "${input_bam}" --name`
 
@@ -15,8 +11,8 @@ bam_file=`dx describe "${input_bam}" --name`
 bam_prefix="${bam_file%.bam}"
 
 # Download bam and index files
-dx download "$input_bam" -o "$bam_file" --auth $API_KEY
-dx download "$input_bam_index" -o "${bam_prefix}.bai" --auth $API_KEY
+dx download "$input_bam" -o "$bam_file"
+dx download "$input_bam_index" -o "${bam_prefix}.bai" 
 
 # Create output directory
 mkdir -p out/verifybamid_out/QC/
