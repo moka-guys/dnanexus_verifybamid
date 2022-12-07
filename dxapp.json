@@ -1,13 +1,13 @@
 {
-  "name": "verify_bam_id_v1.1.1",
-  "title": "verifyBamID_v1.1.1",
-  "summary": "v1.1.1 - Detects sample contamination from genotypic profiles",
+  "name": "verify_bam_id_v1.2",
+  "title": "verifyBamID_v1.2",
+  "summary": "v1.2 - Detects sample contamination from genotypic profiles",
   "tags": [
     "Read QC",
     "Statistics"
   ],
   "properties": {
-    "github release": "v1.1.1"
+    "github release": "v1.2"
   },
   "dxapi": "1.0.0",
   "inputSpec": [
@@ -24,34 +24,37 @@
       "help": "The index file corresponding to the input BAM file.",
       "class": "file",
       "patterns": ["*.bai"]
-    }
+    },	
+    {
+      "name": "skip",
+      "label": "skip",
+      "help": "Skip this step if not required",
+      "class": "boolean",
+      "default": true,
+      "optional": false
+	  }
   ],
   "outputSpec": [
     {
       "name": "verifybamid_out",
       "label": "verifyBamID output files",
       "help": "verifyBamID contamination statistics, read depth distribution and log file",
-      "class": "array:file"
+      "class": "array:file",
+      "optional": true
     }
   ],
   "runSpec": {
     "execDepends": [],
-    "systemRequirementsByRegion": {
-      "aws:us-east-1": {
-        "main": {
-          "instanceType": "mem1_ssd1_x2"
-        }
-      }
-    },
     "systemRequirements": {
       "main": {
         "instanceType": "mem1_ssd1_x2"
       }
     },
     "file": "src/code.sh",
-    "interpreter": "bash",
-    "distribution": "Ubuntu",
-    "release": "14.04"
+    "distribution" : "Ubuntu",
+    "version": "0",
+    "release" : "20.04",
+    "interpreter": "bash"
   },
   "access": {
     "network": [
