@@ -1,4 +1,4 @@
-# dnanexus_verifybamid v1.2.0
+# dnanexus_verifybamid
 
 statgen/verifyBamID [v1.1.3](https://github.com/statgen/verifyBamID/releases/tag/v1.1.3)
 
