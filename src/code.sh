@@ -17,7 +17,7 @@ if [ $skip == false ];
      dx download "$input_bam_index" -o "${bam_prefix}.bai" 
      
      # download the VCF used by VerifyBAMID from 001
-     dx download project-ByfFPz00jy1fk6PjpZ95F27J:file-G77XQY00jy1ZXgBy1fZF7zBQ
+     dx download project-J32193pK9yGfjP2GyZ94KZf4:file-J34Yk62K9yGxxBgkZk6JzKyG
      # Create output directory
      mkdir -p out/verifybamid_out/QC/
 
