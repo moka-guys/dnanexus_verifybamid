@@ -3,9 +3,11 @@
 # The following line causes bash to exit at any point if there is any error
 # and to output each line as it is executed -- useful for debugging
 set -e -x -o pipefail
+
 # only proceed if skip != True
-if [ $skip == false ]; 
+if [ "$skip" == false ]; 
      then
+
      # Store the bam file name as a string
      bam_file=`dx describe "${input_bam}" --name`
 
@@ -13,22 +15,38 @@ if [ $skip == false ];
      bam_prefix="${bam_file%.bam}"
 
      # Download bam and index files
-     dx download "$input_bam" -o "$bam_file"
-     dx download "$input_bam_index" -o "${bam_prefix}.bai" 
-     
-     # download the VCF used by VerifyBAMID from 001
-     dx download project-ByfFPz00jy1fk6PjpZ95F27J:file-G77XQY00jy1ZXgBy1fZF7zBQ
+     dx download "$input_bam" -o "/home/dnanexus/$bam_file"
+     dx download "$input_bam_index" -o "/home/dnanexus/${bam_prefix}.bai" 
+
+     # Get verifyBAMID_1.1.3 Docker image
+     VBID1_DOCKER_IMAGE_LOCATION=project-J0yfQ400Jy1pJP08gFkGq6q7:file-J4j5Yf80Jy1VVvF3GBJKk5zx
+     dx download "${VBID1_DOCKER_IMAGE_LOCATION}" -o "/home/dnanexus/verifybamid_1.1.3.tar.gz"
+    
+    # Extract image name from manifest.json inside tarball
+    VBID1_DOCKER_IMAGE_NAME=$(tar xfO /home/dnanexus/verifybamid_1.1.3.tar.gz manifest.json \
+        | sed -E 's/.*"RepoTags":\["?([^"]*)".*/\1/')
+
+    echo "Loading Docker image: ${VBID1_DOCKER_IMAGE_NAME}"
+
+    # Load the Docker image
+    docker load < /home/dnanexus/verifybamid_1.1.3.tar.gz
+
+    # Remove the .tar to save space
+    rm /home/dnanexus/verifybamid_1.1.3.tar.gz
+
      # Create output directory
-     mkdir -p out/verifybamid_out/QC/
+     mkdir -p /home/dnanexus/out/verifybamid_out/QC/verifybamid/
 
      # Call verifyBamID for contamination check. The following notable options are passed:
      # --ignoreRG; to check the contamination for the entire BAM rather than examining individual read groups
      # --precise; calculate the likelihood in log-scale for high-depth data (recommended when --maxDepth is greater than 20)
      # --maxDepth 1000; For the targeted exome sequencing, --maxDepth 1000 and --precise is recommended.
-     verifyBamID --vcf Omni25_genotypes_1525_samples_v2.b37.PASS.ALL.sites.vcf.gz \
-          --bam $bam_file \
-          --out out/verifybamid_out/QC/$bam_prefix \
-          --verbose --ignoreRG --precise --maxDepth 1000
+     docker run -v /home/dnanexus:/home/dnanexus \
+        --rm "$VBID1_DOCKER_IMAGE_NAME" \
+        --vcf /home/dnanexus/Omni25_genotypes_1525_samples_v2.b37.PASS.ALL.sites.vcf.gz \
+        --bam /home/dnanexus/$bam_file \
+        --out /home/dnanexus/out/verifybamid_out/QC/verifybamid/$bam_prefix \
+        --verbose --ignoreRG --precise --maxDepth 1000
 
      # Upload results to DNA Nexus
      dx-upload-all-outputs
