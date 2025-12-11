@@ -45,7 +45,6 @@
   ],
   "runSpec": {
     "interpreter": "bash",
-    "headJobOnDemand": false,
     "distribution": "Ubuntu",
     "release": "24.04",
     "version": "0",
