@@ -19,7 +19,7 @@ if [ "$skip" == false ];
      dx download "$input_bam_index" -o "/home/dnanexus/${bam_prefix}.bai" 
 
      # Get verifyBAMID_1.1.3 Docker image
-     VBID1_DOCKER_IMAGE_LOCATION=project-J0yfQ400Jy1pJP08gFkGq6q7:file-J4j5Yf80Jy1VVvF3GBJKk5zx
+     VBID1_DOCKER_IMAGE_LOCATION=project-ByfFPz00jy1fk6PjpZ95F27J:file-J5KPFqj0jy1qJKGxy3V07QYg
      dx download "${VBID1_DOCKER_IMAGE_LOCATION}" -o "/home/dnanexus/verifybamid_1.1.3.tar.gz"
     
     # Extract image name from manifest.json inside tarball
