@@ -16,7 +16,11 @@ if [ "$skip" == false ];
 
      # Download bam and index files
      dx download "$input_bam" -o "/home/dnanexus/$bam_file"
-     dx download "$input_bam_index" -o "/home/dnanexus/${bam_prefix}.bai" 
+     dx download "$input_bam_index" -o "/home/dnanexus/${bam_prefix}.bai"
+
+     # Download the reference allele frequency VCF
+    REFERENCE_AF_VCF=project-J32193pK9yGfjP2GyZ94KZf4:file-J34Yk62K9yGxxBgkZk6JzKyG
+    dx download "${REFERENCE_AF_VCF}" -o "/home/dnanexus/Omni25_genotypes_1525_samples_v2.b37.PASS.ALL.sites.vcf.gz"
 
      # Get verifyBAMID_1.1.3 Docker image
      VBID1_DOCKER_IMAGE_LOCATION=project-J32193pK9yGfjP2GyZ94KZf4:file-J6Z2xbBK9yGQFB24q97PBVJ5

@@ -9,6 +9,7 @@ This app runs verifyBamID to detect sample contamination by comparing sample gen
 This contamination estimate is calculated using a likelihood-based mixture model that compares observed allele counts from sequence reads to expected genotype probabilities derived from the population allele frequency provided in the reference VCF. The likelihoods of each read being obtained from the intended sample or from another sample via contamination are used to calculate the sequence-only contamination estimate value **FREEMIX**.
 
 Here, the VCF file used is the Omni 2.5M SNP array VCF which contains allele frequency information across individuals from the 1,000 Genomes project (chr20 only, to reduce the compute time of verifyBamID). Markers are selected from the VCF where AF >= 0.010000 and callRate >= 0.500000.
+The Omni 2.5M SNP array VCF is available at https://csg.sph.umich.edu/kang/verifyBamID/download/.
 
 This app utilises a Docker container to run the verifyBamID executable, which is available in the moka-guys seglh_verifybamid_docker repository as well as the GSTT DNAnexus project 001_ToolsReferenceData/Docker.
 
