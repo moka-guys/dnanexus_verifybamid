@@ -58,7 +58,7 @@
   },
   "ignoreReuse": false,
   "regionalOptions": {
-    "aws:us-east-1": {
+    "aws:eu-west-2-g": {
       "systemRequirements": {
         "*": {
           "instanceType": "mem1_ssd1_v2_x2"
